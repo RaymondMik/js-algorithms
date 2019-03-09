@@ -1,0 +1,14 @@
+{
+  "name": "js-algorithms",
+  "version": "1.0.0",
+  "description": "just a bunch of exercises made with JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Ramon Miklus",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^24.3.1"
+  }
+}
