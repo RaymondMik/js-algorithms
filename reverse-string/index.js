@@ -12,18 +12,21 @@
 
 // -- Solution 2
 // avoid using reverse(), use a for loop instead
-// const reverseString = (str) => {
-//    let reversed = '';
+const reverseString = (str) => {
+   debugger; // use node inspect --filename to run the code in debugging mode
+   let reversed = '';
 
-//    for (let character of str) {
-//        reversed = character + reversed
-//    }
+   for (let character of str) {
+       reversed = character + reversed
+   }
 
-//    return reversed;
-// }
+   return reversed;
+}
+
+reverseString('apple')
 
 // -- Solution 3
 // avoid using reverse(), use reduce() instead
-const reverseString = (str) => str.split('').reduce((acc, character) => character + acc, '')
+// const reverseString = (str) => str.split('').reduce((reversed, character) => character + reversed, '')
 
 module.exports = reverseString;
