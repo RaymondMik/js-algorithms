@@ -17,25 +17,19 @@
 const pyramid = (n) => {
    let i = 1;
    let outputStr = '';
-   const fullSpace = '#';
-   const emptySpace = ' ';
+    const fullSpace = '#';
+    const emptySpace = ' ';
 
-   while (i <= n) {
-      if (i === 1) {
-         outputStr = 
-               `${emptySpace.repeat(n - i)}${fullSpace.repeat(i)}${emptySpace.repeat(n - i)}`;
-      } else if (i === n) {
-         outputStr = 
-               `${emptySpace.repeat(n - i)}${fullSpace.repeat(i + n -1)}${emptySpace.repeat(n - i)}`;
-         
-      } else {
-         outputStr = 
-               `${emptySpace.repeat(n - (i + (i - 1)) / 2)}${fullSpace.repeat(i + (i - 1))}${emptySpace.repeat(n - (i + (i - 1)) / 2)}`;
-      }
+    while (i <= n) {
+        const charSpacing = fullSpace.repeat(i + (i - 1));
+        // side spacing is equal to num of rows - charSpaces / 2
+        const sideSpacing = emptySpace.repeat(Math.floor(n - (i + (i - 1)) / 2));
+        outputStr = 
+            `'${sideSpacing}${charSpacing}${sideSpacing}'`;
 
-      console.log(outputStr);
-      i++;
-   }
+        console.log(outputStr);
+        i++;
+    }
 }
 
 module.exports = pyramid;
