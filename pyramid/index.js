@@ -25,7 +25,7 @@ const pyramid = (n) => {
         // side spacing is equal to num of rows - charSpaces / 2
         const sideSpacing = emptySpace.repeat(Math.floor(n - (i + (i - 1)) / 2));
         outputStr = 
-            `'${sideSpacing}${charSpacing}${sideSpacing}'`;
+            `${sideSpacing}${charSpacing}${sideSpacing}`;
 
         console.log(outputStr);
         i++;
