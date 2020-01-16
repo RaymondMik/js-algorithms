@@ -29,13 +29,16 @@ class LinkedList {
       }
    }
 
-   size(node = this.head, counter = 0) {
-      if (node) {
+   size() {
+      let node = this.head;
+      let counter = 0;
+
+      while(node) {
+         node = node.next;
          counter++;
-         return this.size(node.next, counter)
-      } else {
-         return counter;
       }
+
+      return counter;
    }
 
    getFirst() {
@@ -54,7 +57,7 @@ class LinkedList {
       this.head = null;
    }
 
-   removeFirst(node = this.head) {
+   removeFirst() {
       if (!this.head) return null;
       // if there is only one node the list gets flushed
       this.head = this.head.next;
@@ -83,6 +86,41 @@ class LinkedList {
          node = node.next;
          counter++;
       }
+
+      return null;
+   }
+
+   removeAt(index) {
+      // change the reference of the prev node to the node after the one selected
+      const previousNode = this.getAt(index - 1);
+
+      if (!previousNode) {
+         this.removeFirst();
+         return;
+      }
+
+      if (!previousNode.next) {
+         return;
+      }
+
+      previousNode.next = previousNode.next.next;
+   }
+
+   insertAt(data, index) {
+      if (!this.head) {
+         this.head = new Node(data);
+         return;
+      }
+
+      if (index === 0) {
+         this.insertFirst(data);
+         return;
+      }
+
+      // out of bounds case 1) - getAt would return null, in such case insertAt last element
+      const previousNode = this.getAt(index - 1) || this.getLast();
+      const node = new Node(data, previousNode.next);
+      previousNode.next = node;
    }
 }
 
@@ -95,8 +133,9 @@ list.insertLast(222);
 // list.getFirst();
 // list.getLast();
 // list.removeLast();
-
-console.log(888, list.getLast());
-
+// list.insertAt(3435, 3);
+//console.log("BEFORE", { size: list.size(), 0: list.getAt(0), last: list.getLast()});
+// list.removeAt(4);
+//console.log("AFTER", { size: list.size(), 0: list.getAt(0), last: list.getLast() });
 
 module.exports = { Node, LinkedList };
