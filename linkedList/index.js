@@ -15,18 +15,31 @@ class LinkedList {
    }
 
    insertFirst(data) {
-      // if the first node is not defined it will be null anyway
-      this.head = new Node(data, this.head);
+      this.insertAt(data, 0);
    }
 
    insertLast(data) {
-      const last = this.getLast();
+      this.insertAt(data, this.size());
+   }
 
-      if (last) {
-         last.next = new Node(data)
-      } else {
-         this.head = new Node(data);
-      }
+   getFirst() {
+      return this.getAt(0);
+   }
+
+   getLast() {
+      return this.getAt(this.size() - 1);
+   }
+
+   clear() {
+      this.head = null;
+   }
+
+   removeFirst() {
+      this.removeAt(0);
+   }
+
+   removeLast() {
+      this.removeAt(this.size() - 1);
    }
 
    size() {
@@ -39,37 +52,6 @@ class LinkedList {
       }
 
       return counter;
-   }
-
-   getFirst() {
-      return this.head;
-   }
-
-   getLast(node = this.head) {
-      if (node && node.next) {
-         return this.getLast(node.next)
-      } else {
-         return node;
-      }
-   }
-
-   clear() {
-      this.head = null;
-   }
-
-   removeFirst() {
-      if (!this.head) return null;
-      // if there is only one node the list gets flushed
-      this.head = this.head.next;
-   }
-
-   removeLast(node = this.head, previousNode = null) {
-      if (node && node.next) {
-         return this.removeLast(node.next, node);
-      } else {
-         if (previousNode) previousNode.next = null;
-         if (node === this.head) this.head = null;
-      }
    }
 
    getAt(index) {
@@ -94,8 +76,12 @@ class LinkedList {
       // change the reference of the prev node to the node after the one selected
       const previousNode = this.getAt(index - 1);
 
-      if (!previousNode) {
-         this.removeFirst();
+      if (!this.head) {
+         return;
+      }
+
+      if (index === 0) {
+         this.head = this.head.next;
          return;
       }
 
@@ -113,7 +99,7 @@ class LinkedList {
       }
 
       if (index === 0) {
-         this.insertFirst(data);
+         this.head = new Node(data, this.head);
          return;
       }
 
