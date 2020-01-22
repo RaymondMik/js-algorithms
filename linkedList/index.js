@@ -110,12 +110,12 @@ class LinkedList {
    }
 }
 
-const list = new LinkedList;
-list.insertFirst(8);
-list.insertFirst(34);
-list.insertFirst(2);
-list.insertFirst(111);
-list.insertLast(222);
+// const list = new LinkedList;
+// list.insertFirst(8);
+// list.insertFirst(34);
+// list.insertFirst(2);
+// list.insertFirst(111);
+// list.insertLast(222);
 // list.getFirst();
 // list.getLast();
 // list.removeLast();
