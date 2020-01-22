@@ -108,14 +108,43 @@ class LinkedList {
       const node = new Node(data, previousNode.next);
       previousNode.next = node;
    }
+
+   forEach(func) {
+      let node = this.head;
+      let i = 0;
+   
+      while(node) {
+         func(node, i);
+         node = node.next;
+         i++;
+      }
+   }
+
+   *[Symbol.iterator]() {
+      let node = this.head;
+      while(node) {
+         yield node;
+         node = node.next;
+      }
+   } 
+
 }
 
-// const list = new LinkedList;
-// list.insertFirst(8);
-// list.insertFirst(34);
-// list.insertFirst(2);
-// list.insertFirst(111);
-// list.insertLast(222);
+const list = new LinkedList;
+
+list.insertFirst(8);
+list.insertFirst(34);
+list.insertFirst(2);
+list.insertFirst(111);
+list.insertLast(222);
+
+list.forEach((node, i) => { console.log(111, node.data + 1) });
+
+for (let node of list) {
+   console.log(222, node);
+}
+
+
 // list.getFirst();
 // list.getLast();
 // list.removeLast();
@@ -125,3 +154,33 @@ class LinkedList {
 //console.log("AFTER", { size: list.size(), 0: list.getAt(0), last: list.getLast() });
 
 module.exports = { Node, LinkedList };
+
+/** GENERATOR TO LOOP OVER A TREE 
+
+class Tree {
+   constructor(value = null, children = []) {
+      this.value = value;
+      this.children = children;
+   }
+
+   *printValues() {
+      yield this.value;
+      for (let child of this.children) {
+         yield* child.printValues();
+      }
+   }
+}
+
+const tree = new Tree(
+   1, [new Tree(2, [new Tree(4)]), new Tree(3)]
+);
+
+let values = [];
+
+for (let value of tree.printValues()) {
+   values.push(value);
+}
+
+console.log(222, values);
+
+*/
