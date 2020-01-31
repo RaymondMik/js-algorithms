@@ -1,6 +1,10 @@
 const L = require('./index');
 const List = L.LinkedList;
 const Node = L.Node;
+const midpoint = L.midpoint;
+const circular = L.circular;
+const fromLast = L.fromLast;
+
 
 test('List is a class', () => {
   expect(typeof List.prototype.constructor).toEqual('function');
@@ -321,4 +325,108 @@ describe('for...of loops', () => {
       }
     }).not.toThrow();
   });
+});
+
+test('Midpoint is a function', () => {
+  expect(typeof midpoint).toEqual('function');
+});
+
+describe('Midpoint returns the middle node of an odd numbered list', () => {
+  test('when the list has 3 elements', () => {
+    const l = new List();
+    l.insertLast('a');
+    l.insertLast('b');
+    l.insertLast('c');
+    expect(midpoint(l).data).toEqual('b');
+  });
+
+  test('when the list has 5 elements', () => {
+    const l = new List();
+    l.insertLast('a');
+    l.insertLast('b');
+    l.insertLast('c');
+    l.insertLast('d');
+    l.insertLast('e');
+    expect(midpoint(l).data).toEqual('c');
+  });
+});
+
+describe('Midpoint returns the middle node of an even numbered list', () => {
+  test('when the list has 2 elements', () => {
+    const l = new List();
+    l.insertLast('a');
+    l.insertLast('b');
+    expect(midpoint(l).data).toEqual('a');
+  });
+
+  test('when the list has 4 elements', () => {
+    const l = new List();
+    l.insertLast('a');
+    l.insertLast('b');
+    l.insertLast('c');
+    l.insertLast('d');
+    expect(midpoint(l).data).toEqual('b');
+  });
+});
+
+test('circular', () => {
+  expect(typeof circular).toEqual('function');
+});
+
+test('circular detects circular linked lists', () => {
+  const l = new List();
+  const a = new Node('a');
+  const b = new Node('b');
+  const c = new Node('c');
+
+  l.head = a;
+  a.next = b;
+  b.next = c;
+  c.next = b;
+
+  expect(circular(l)).toEqual(true);
+});
+
+test('circular detects circular linked lists linked at the head', () => {
+  const l = new List();
+  const a = new Node('a');
+  const b = new Node('b');
+  const c = new Node('c');
+
+  l.head = a;
+  a.next = b;
+  b.next = c;
+  c.next = a;
+
+  expect(circular(l)).toEqual(true);
+});
+
+test('circular detects non-circular linked lists', () => {
+  const l = new List();
+  const a = new Node('a');
+  const b = new Node('b');
+  const c = new Node('c');
+
+  l.head = a;
+  a.next = b;
+  b.next = c;
+  c.next = null;
+
+  expect(circular(l)).toEqual(false);
+});
+
+test('fromLast is a function', () => {
+  expect(typeof fromLast).toEqual('function');
+});
+
+test('fromLast returns the node n elements from the end', () => {
+  const l = new List();
+
+  l.insertLast('a');
+  l.insertLast('b');
+  l.insertLast('c');
+  l.insertLast('d');
+  l.insertLast('e');
+
+  expect(fromLast(l, 3).data).toEqual('b');
 });

@@ -109,12 +109,12 @@ class LinkedList {
       previousNode.next = node;
    }
 
-   forEach(func) {
+   forEach(fun) {
       let node = this.head;
       let i = 0;
    
       while(node) {
-         func(node, i);
+         fun(node, i);
          node = node.next;
          i++;
       }
@@ -132,18 +132,17 @@ class LinkedList {
 
 const list = new LinkedList;
 
-list.insertFirst(8);
-list.insertFirst(34);
-list.insertFirst(2);
-list.insertFirst(111);
-list.insertLast(222);
+// list.insertFirst(8);
+// list.insertFirst(34);
+// list.insertFirst(2);
+// list.insertFirst(111);
+// list.insertFirst(222);
 
-list.forEach((node, i) => { console.log(111, node.data + 1) });
+// list.forEach((node, i) => { console.log(111, node.data + 1) });
 
-for (let node of list) {
-   console.log(222, node);
-}
-
+// for (let node of list) {
+//    console.log(222, node);
+// }
 
 // list.getFirst();
 // list.getLast();
@@ -153,9 +152,113 @@ for (let node of list) {
 // list.removeAt(4);
 //console.log("AFTER", { size: list.size(), 0: list.getAt(0), last: list.getLast() });
 
-module.exports = { Node, LinkedList };
 
-/** GENERATOR TO LOOP OVER A TREE 
+/***************************************************/
+/** MIDPOINT exercise with slow and fast pointers **/
+/***************************************************/
+
+// --- Directions
+// Return the 'middle' node of a linked list.
+// If the list has an even number of elements, return
+// the node at the end of the first half of the list.
+// *Do not* use a counter variable, *do not* retrieve
+// the size of the list, and only iterate
+// through the list one time using slow and fast pointers.
+// --- Example
+//   const l = new LinkedList();
+//   l.insertLast('a')
+//   l.insertLast('b')
+//   l.insertLast('c')
+//   midpoint(l); // returns { data: 'b' }
+
+function midpoint(linkedList) {
+   let slowPointer = linkedList.getFirst();
+   let fastPointer = linkedList.getFirst();
+
+   while(fastPointer.next && fastPointer.next.next) {
+      slowPointer = slowPointer.next;
+      fastPointer = fastPointer.next.next;
+   }
+
+   return slowPointer;
+}
+
+
+/********************************************************/
+/** CIRCULAR LIST exercise with slow and fast pointers **/
+/********************************************************/
+
+// --- Directions
+// Given a linked list, return true if the list
+// is circular, false if it is not.
+// --- Examples
+//   const l = new List();
+//   const a = new Node('a');
+//   const b = new Node('b');
+//   const c = new Node('c');
+//   l.head = a;
+//   a.next = b;
+//   b.next = c;
+//   c.next = b;
+//   circular(l) // true
+
+function circular(linkedList) {
+   let slowPointer = linkedList.getFirst();
+   let fastPointer = linkedList.getFirst();
+
+   while(fastPointer.next && fastPointer.next.next) {
+      slowPointer = slowPointer.next;
+      fastPointer = fastPointer.next.next;
+
+      if (slowPointer === fastPointer) {
+         return true;
+      }
+   }
+
+   return false;
+}
+
+
+/*********************************************************/
+/** STEP BACK FROMN THE TAIL exercise with two pointers **/
+/*********************************************************/
+
+// --- Directions
+// Given a linked list, return the element n spaces
+// from the last node in the list.  Do not call the 'size'
+// method of the linked list.  Assume that n will always
+// be less than the length of the list.
+// --- Examples
+//    const list = new List();
+//    list.insertLast('a');
+//    list.insertLast('b');
+//    list.insertLast('c');
+//    list.insertLast('d');
+//    fromLast(list, 2).data // 'b'
+
+function fromLast(list, n) {
+   let slowPointer = list.getFirst();
+   let fastPointer = list.getFirst();
+
+   while(n > 0) {
+      fastPointer = fastPointer.next;
+      n--;
+   }
+
+   while(fastPointer.next) {
+      slowPointer = slowPointer.next;
+      fastPointer = fastPointer.next;
+   }
+
+   return slowPointer;
+}
+
+module.exports = fromLast;
+
+module.exports = { Node, LinkedList, midpoint, circular, fromLast };
+
+
+/** USE GENERATORS TO LOOP OVER A TREE 
 
 class Tree {
    constructor(value = null, children = []) {
