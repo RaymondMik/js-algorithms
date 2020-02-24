@@ -90,23 +90,23 @@ function levelWidth(root) {
    let nodes = [root, 'STOPPER'];
 
    while(nodes.length > 1) {
-      // [Node, "STOPPER"]
+      // -> [Node, "STOPPER"]
       // remove the first node and store it in firstNode
       let firstNode = nodes.shift();
-      // ["STOPPER"]
+      // -> ["STOPPER"]
       if (firstNode && firstNode !== 'STOPPER' && firstNode.children) {
          // add node children at the end of the array to mark a new leve
          nodes.push(...firstNode.children);
-         // ["STOPPER", ChildNode, ChildNode, ...]
+         // -> ["STOPPER", ChildNode, ChildNode, ...]
       }
       
       // increment levels
       levels[levels.length - 1]++;
       // move stopper value to the end of nodes, this helps us figuring out we processed an entire level
-      if (nodes[0] === 'STOPPER' && nodes.length > 1) {
+      if (nodes[0]=== 'STOPPER' && nodes.length > 1) {
          const stopper = nodes.shift();
          nodes.push(stopper);
-         // [ChildNode, ChildNode, ... , "STOPPER"]
+         // -> [ChildNode, ChildNode, ... , "STOPPER"]
 
          // move to the next level of the tree
          levels.push(0);
@@ -116,6 +116,36 @@ function levelWidth(root) {
    return levels;
 }
 
+/*function levelWidthRefactored(root) {
+   let levels = [0];
+   let nodes = [root, 'STOPPER'];
+
+   while(nodes.length > 1) {
+      // [Node, "STOPPER"]
+      // remove the first node and store it in firstNode
+      let firstNode = nodes.shift();
+  
+      // move stopper value to the end of nodes, this helps us figuring out we processed an entire level
+      if (firstNode === 'STOPPER') {
+         nodes.push(firstNode);
+         // [ChildNode, ChildNode, ... , "STOPPER"]
+
+         // move to the next level of the tree
+         levels.push(0);
+      } else {
+         // add node children at the end of the array to mark a new leve
+         nodes.push(...firstNode.children);
+         // ["STOPPER", ChildNode, ChildNode, ...]
+
+         // increment levels
+         levels[levels.length - 1]++;
+      }
+   }
+
+   return levels;
+}*/
+
 levelWidth(myTree.root)
+
 
 module.exports = { Tree, Node, levelWidth };

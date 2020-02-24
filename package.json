@@ -4,7 +4,7 @@
   "description": "just a bunch of exercises made with JavaScript",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon trees/index.js",
+    "start": "nodemon $*",
     "test": "jest"
   },
   "author": "Ramon Miklus",
